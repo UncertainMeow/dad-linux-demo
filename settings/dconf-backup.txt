@@ -1,0 +1,84 @@
+[com/ubuntu/update-notifier]
+release-check-time=uint32 1766931869
+
+[org/gnome/deja-dup]
+backend='google'
+prompt-check='2025-12-28T14:27:29.809632Z'
+
+[org/gnome/desktop/app-folders]
+folder-children=['Utilities', 'YaST', 'Pardus']
+
+[org/gnome/desktop/app-folders/folders/Pardus]
+categories=['X-Pardus-Apps']
+name='X-Pardus-Apps.directory'
+translate=true
+
+[org/gnome/desktop/app-folders/folders/Utilities]
+apps=['gnome-abrt.desktop', 'gnome-system-log.desktop', 'nm-connection-editor.desktop', 'org.gnome.baobab.desktop', 'org.gnome.Connections.desktop', 'org.gnome.DejaDup.desktop', 'org.gnome.Dictionary.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Evince.desktop', 'org.gnome.FileRoller.desktop', 'org.gnome.fonts.desktop', 'org.gnome.Loupe.desktop', 'org.gnome.seahorse.Application.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Usage.desktop', 'vinagre.desktop']
+categories=['X-GNOME-Utilities']
+name='X-GNOME-Utilities.directory'
+translate=true
+
+[org/gnome/desktop/app-folders/folders/YaST]
+categories=['X-SuSE-YaST']
+name='suse-yast.directory'
+translate=true
+
+[org/gnome/desktop/input-sources]
+sources=[('xkb', 'us')]
+xkb-options=@as []
+
+[org/gnome/desktop/interface]
+color-scheme='prefer-dark'
+icon-theme='Papirus'
+text-scaling-factor=1.1000000000000001
+
+[org/gnome/desktop/peripherals/keyboard]
+numlock-state=true
+
+[org/gnome/desktop/wm/keybindings]
+maximize=@as []
+unmaximize=@as []
+
+[org/gnome/evolution-data-server]
+migrated=true
+
+[org/gnome/mutter]
+edge-tiling=false
+overlay-key='Super_L'
+
+[org/gnome/mutter/keybindings]
+toggle-tiled-left=@as []
+toggle-tiled-right=@as []
+
+[org/gnome/nautilus/preferences]
+default-folder-viewer='icon-view'
+migrated-gtk-settings=true
+search-filter-time-type='last_modified'
+
+[org/gnome/shell/app-switcher]
+current-workspace-only=false
+
+[org/gnome/shell/extensions/zorin-desktop-icons]
+check-x11wayland=true
+
+[org/gnome/shell/extensions/zorin-taskbar]
+panel-anchors='{}'
+panel-element-positions='{}'
+panel-lengths='{}'
+panel-positions='{}'
+panel-sizes='{}'
+
+[org/gnome/shell/extensions/zorin-tiling-shell]
+last-version-name-installed='17.0'
+layouts-json='[{"id":"Layout 1","tiles":[{"x":0,"y":0,"width":0.5,"height":1,"groups":[1]},{"x":0.5,"y":0,"width":0.5,"height":1,"groups":[1]}]},{"id":"Layout 2","tiles":[{"x":0,"y":0,"width":0.5,"height":0.5,"groups":[1,3]},{"x":0.5,"y":0,"width":0.5,"height":0.5,"groups":[2,1]},{"x":0.5,"y":0.5,"width":0.5,"height":0.5,"groups":[2,1]},{"x":0,"y":0.5,"width":0.5,"height":0.5,"groups":[3,1]}]},{"id":"Layout 3","tiles":[{"x":0,"y":0,"width":0.67,"height":1,"groups":[1]},{"x":0.67,"y":0,"width":0.33,"height":1,"groups":[1]}]},{"id":"Layout 4","tiles":[{"x":0,"y":0,"width":0.333,"height":1,"groups":[1]},{"x":0.333,"y":0,"width":0.333,"height":1,"groups":[2,1]},{"x":0.666,"y":0,"width":0.333,"height":1,"groups":[2]}]},{"id":"Layout 5","tiles":[{"x":0,"y":0,"width":0.5,"height":1,"groups":[1]},{"x":0.5,"y":0,"width":0.5,"height":0.5,"groups":[2,1]},{"x":0.5,"y":0.5,"width":0.5,"height":0.5,"groups":[2,1]}]},{"id":"Layout 6","tiles":[{"x":0,"y":0,"width":0.22,"height":0.5,"groups":[1,2]},{"x":0,"y":0.5,"width":0.22,"height":0.5,"groups":[1,2]},{"x":0.22,"y":0,"width":0.56,"height":1,"groups":[2,3]},{"x":0.78,"y":0,"width":0.22,"height":0.5,"groups":[3,4]},{"x":0.78,"y":0.5,"width":0.22,"height":0.5,"groups":[3,4]}]}]'
+overridden-settings="{\"org.gnome.mutter.keybindings\":{\"toggle-tiled-right\":\"['<Primary><Super>Right', '<Super>Right']\",\"toggle-tiled-left\":\"['<Primary><Super>Left', '<Super>Left']\"},\"org.gnome.desktop.wm.keybindings\":{\"maximize\":\"['<Super>Up']\",\"unmaximize\":\"['<Super>Down', '<Alt>F5']\"},\"org.gnome.mutter\":{\"edge-tiling\":\"true\"}}"
+selected-layouts=[['Layout 1'], ['Layout 1']]
+
+[org/gnome/software]
+check-timestamp=int64 1766931882
+first-run=false
+
+[org/gtk/gtk4/settings/file-chooser]
+show-hidden=false
+sort-directories-first=true

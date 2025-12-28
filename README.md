@@ -1,40 +1,24 @@
 # Dad Linux Demo Kit (Zorin OS)
 
-A clean, demo-only setup that shows what Linux can look like after a little curiosity.
-Designed for a second user account so you don’t clutter your dad’s environment.
+This is a demo-only setup for a fresh user account on Zorin OS.
 
-## Quick start
-
-1. Create a new user account on the laptop (Settings → Users) and log into it.
-2. Open Terminal.
-3. Run:
+## Run it
 
 ```bash
 sudo apt update
 sudo apt install -y git
-git clone https://github.com/UncertainMeow/dad-linux-demo.git
+git clone <this repo>
 cd dad-linux-demo
 bash scripts/bootstrap.sh
 ```
 
-When it finishes, it prints a fastfetch “reveal”.
-
-## What this does
-
-- Installs a curated set of useful tools and a few fun ones
-- Pulls your dotfiles repo (optional and non-destructive by default)
-- Applies a clean icon theme
-- Sets up fastfetch config
-- Gives you a repeatable, show-and-tell runbook
+During the run, you will get an interactive wallpaper picker.
 
 ## Files
 
-- `scripts/bootstrap.sh` demo installer + reveal
-- `scripts/demo-screenshot.sh` optional helper for a “unixporn” screenshot setup
-- `docs/demo-runbook.md` how to run the demo and what to say
-- `docs/vm-demo.md` simple virtualization demo (Windows VM) and the “escape hatch” story
-
-## Notes
-
-This is meant to be impressive, not fragile.
-If something fails, rerun the script. It’s safe.
+- `scripts/bootstrap.sh` installs tools, applies visible settings, ends with a fastfetch reveal
+- `scripts/apply-settings.sh` interactive wallpaper picker + dark mode + icons + text scaling
+- `scripts/backup-settings.sh` exports dconf settings to `settings/dconf-backup.txt`
+- `scripts/restore-settings.sh` replays that settings file on a new machine
+- `scripts/demo-screenshot.sh` prompts you then opens interactive screenshot tool
+- `assets/wallpapers/` contains the 3 wallpaper options

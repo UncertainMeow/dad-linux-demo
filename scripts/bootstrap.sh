@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Demo-only bootstrap for a fresh Zorin OS user account.
-# Goal: fast, readable output, minimal risk, maximum "wow".
-
 bold() { printf "\033[1m%s\033[0m\n" "$*"; }
 ok()   { printf "  \033[32m✔\033[0m %s\n" "$*"; }
 warn() { printf "  \033[33m!\033[0m %s\n" "$*"; }
+err()  { printf "  \033[31m✖\033[0m %s\n" "$*"; }
 step() { printf "\n\033[1m→ %s\033[0m\n" "$*"; }
+have() { command -v "$1" >/dev/null 2>&1; }
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 clear
 bold "----------------------------------------"
@@ -16,10 +18,14 @@ bold "  Optional. Reversible. Kinda fun."
 bold "----------------------------------------"
 echo
 
-if ! command -v sudo >/dev/null 2>&1; then
-  echo "This script needs sudo."
+if ! have sudo; then
+  err "sudo not found, this script needs sudo"
   exit 1
 fi
+
+step "Getting sudo ready"
+sudo -v
+ok "Sudo ready"
 
 step "Updating system"
 sudo apt update -y
@@ -30,16 +36,17 @@ step "Installing core tools"
 sudo apt install -y \
   git curl wget \
   neovim tmux zsh \
-  fastfetch htop \
+  htop \
   fzf ripgrep \
   bat eza \
   fonts-firacode \
   gnome-tweaks \
-  gnome-shell-extensions
+  gnome-shell-extensions \
+  dconf-cli
 
 ok "Core tools installed"
 
-step "Installing everyday apps (safe, familiar)"
+step "Installing everyday apps"
 sudo apt install -y \
   vlc libreoffice \
   gimp
@@ -47,16 +54,41 @@ sudo apt install -y \
 ok "Everyday apps installed"
 
 step "Installing visual polish"
-sudo apt install -y \
-  papirus-icon-theme
+sudo apt install -y papirus-icon-theme
+ok "Papirus icon theme installed"
 
-gsettings set org.gnome.desktop.interface icon-theme "Papirus" || true
-ok "Papirus icons enabled"
+step "Installing fastfetch"
+FASTFETCH_INSTALLED="no"
+
+if sudo apt install -y fastfetch >/dev/null 2>&1; then
+  FASTFETCH_INSTALLED="yes"
+  ok "Fastfetch installed via apt"
+else
+  warn "Fastfetch not available via apt, trying snap"
+  if have snap; then
+    sudo snap install fastfetch || true
+    if have fastfetch; then
+      FASTFETCH_INSTALLED="yes"
+      ok "Fastfetch installed via snap"
+    else
+      warn "Fastfetch not found in PATH yet"
+    fi
+  else
+    warn "snap not found, skipping fastfetch"
+  fi
+fi
+
+step "Applying visible settings by script"
+if [ -x "$REPO_ROOT/scripts/apply-settings.sh" ]; then
+  bash "$REPO_ROOT/scripts/apply-settings.sh" || warn "Settings apply had issues"
+else
+  warn "apply-settings.sh not found or not executable"
+fi
 
 step "Pulling dotfiles (optional)"
 cd "$HOME"
-
 DOTFILES_URL="https://github.com/UncertainMeow/dotfiles.git"
+
 if [ -d "$HOME/dotfiles" ]; then
   warn "dotfiles folder already exists, skipping clone"
 else
@@ -65,14 +97,14 @@ fi
 ok "Dotfiles cloned (not applied)"
 
 step "Setting Zsh as default shell (optional)"
-if command -v zsh >/dev/null 2>&1; then
-  chsh -s "$(command -v zsh)" "$USER" || warn "Could not change shell (you can do it later)"
+if have zsh; then
+  chsh -s "$(command -v zsh)" "$USER" || warn "Could not change shell"
   ok "Zsh set as default (log out and back in to take effect)"
 else
   warn "Zsh not found"
 fi
 
-step "Configuring fastfetch (the reveal)"
+step "Configuring fastfetch"
 mkdir -p "$HOME/.config/fastfetch"
 cat << 'EOF' > "$HOME/.config/fastfetch/config.jsonc"
 {
@@ -104,10 +136,16 @@ bold "----------------------------------------"
 bold "  Setup complete"
 bold "----------------------------------------"
 echo
-fastfetch || true
+
+if [ "$FASTFETCH_INSTALLED" = "yes" ] && have fastfetch; then
+  fastfetch || true
+else
+  warn "Fastfetch not installed, you can still run the demo"
+fi
 
 echo
-echo "Next:"
-echo "  1) Open Tweaks and bump font size a touch"
-echo "  2) Pin a few apps to the dock"
-echo "  3) Arrange a clean desktop, then run: bash scripts/demo-screenshot.sh"
+echo "Settings as a file demo"
+echo "  bash scripts/backup-settings.sh"
+echo
+echo "Screenshot helper"
+echo "  bash scripts/demo-screenshot.sh"
